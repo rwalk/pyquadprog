@@ -44,28 +44,7 @@ python module pyquadprog ! in
             double precision dimension(floor((2*n+min(n,q)*(min(n,q)+5.0)/2+2*q+1))), intent(out) :: work
             integer, intent(inout) :: ierr
         end subroutine qpgen1
-        
-        subroutine qpgen1_inplace(dmat,dvec,fddmat,n,sol,crval,amat,iamat,bvec,fdamat,q,meq,iact,nact,iter,work,ierr) ! in :pyquadprog:solve.QP.compact.f
-            fortranname qpgen1
-            double precision dimension(fddmat,*),intent(inplace) :: dmat
-            double precision dimension(*),intent(inplace) :: dvec
-            integer, optional,check(shape(dmat,0)==fddmat),depend(dmat),intent(in) :: fddmat=shape(dmat,0)
-            integer, intent(in) :: n
-            double precision dimension(*), intent(out) :: sol
-            double precision, intent(out) :: crval
-            double precision dimension(fdamat,*), intent(inplace) :: amat
-            integer dimension(fdamat + 1,*),depend(fdamat), intent(inplace) :: iamat
-            double precision dimension(*), intent(inplace) :: bvec
-            integer, optional,check(shape(amat,0)==fdamat),depend(amat), intent(inplace) :: fdamat=shape(amat,0)
-            integer, intent(hide) :: q=shape(bvec,0)
-            integer, intent(in) :: meq
-            integer dimension(*), intent(out) :: iact
-            integer, intent(out) :: nact
-            integer dimension(*), intent(out) :: iter
-            double precision dimension(*), intent(out) :: work
-            integer, intent(inout) :: ierr
-        end subroutine qpgen1_inplace        
-        
+                
         subroutine qpgen2(dmat,dvec,fddmat,n,sol,crval,amat,bvec,fdamat,q,meq,iact,nact,iter,work,ierr) ! in :pyquadprog:solve.QP.f
             fortranname qpgen2
             double precision dimension(fddmat,*), intent(inplace) :: dmat
@@ -85,26 +64,6 @@ python module pyquadprog ! in
             double precision dimension(floor((2*n+min(n,q)*(min(n,q)+5.0)/2+2*q+1))), intent(out) :: work
             integer, intent(inout) :: ierr
         end subroutine qpgen2
-        
-        subroutine qpgen2_inplace(dmat,dvec,fddmat,n,sol,crval,amat,bvec,fdamat,q,meq,iact,nact,iter,work,ierr) ! in :pyquadprog:solve.QP.f
-            fortranname qpgen2
-            double precision dimension(fddmat,*), intent(inout) :: dmat
-            double precision dimension(*), intent(inplace) :: dvec
-            integer, optional,check(shape(dmat,0)==fddmat),depend(dmat), intent(hide) :: fddmat=shape(dmat,0)
-            integer, intent(hide) :: n=shape(dmat,0)
-            double precision dimension(n), intent(out) :: sol
-            double precision, intent(out) :: crval
-            double precision dimension(fdamat,*), intent(inplace) :: amat
-            double precision dimension(*), intent(inplace) :: bvec
-            integer, optional,check(shape(amat,0)==fdamat),depend(amat), intent(hide) :: fdamat=shape(amat,0)
-            integer, intent(hide) :: q = shape(bvec,0)
-            integer, intent(in) :: meq
-            integer dimension(q), intent(out) :: iact
-            integer, intent(out) :: nact
-            integer dimension(2), intent(out) :: iter
-            double precision dimension(floor((2*n+min(n,q)*(min(n,q)+5.0)/2+2*q+1))), intent(out) :: work
-            integer, intent(inout) :: ierr
-        end subroutine qpgen2_inplace
     end interface
 end python module pyquadprog
 

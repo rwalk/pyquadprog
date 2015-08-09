@@ -15,7 +15,7 @@ The module design follows closely the R implementation.
 
 """
 import numpy as np
-from pyquadprog import aind, qpgen1, qpgen1_inplace, qpgen2, qpgen2_inplace
+from pyquadprog import aind, qpgen1, qpgen2
 
 class Solution:
     '''A solution class for the result of a call to a quadprog solver.
@@ -50,7 +50,7 @@ class Solution:
         s = "Solution = " + self.solution.__str__()
         return s
 
-def solveCompactFormQP(Dmat, dvec, Amat, Aind, bvec, meq=0, factorized=False, destroyOK=False):
+def solveCompactFormQP(Dmat, dvec, Amat, Aind, bvec, meq=0, factorized=False):
     ''' Solve a quadratic program using the active set methods of Goldfarb and Idnani (1982, 1983)
     
     This methods solves a quadratic program of the form:
@@ -80,9 +80,6 @@ def solveCompactFormQP(Dmat, dvec, Amat, Aind, bvec, meq=0, factorized=False, de
 
     factorized -- when factorized is true, Dmat=R^{-1} where D = R^TR.
     
-    destroyOK -- if True, Amat, dvec, Aind, bvec will be destoryed on exit but computation
-    may be performed more efficiently.
-    
     '''
 
     n = Dmat.shape[0]
@@ -103,41 +100,23 @@ def solveCompactFormQP(Dmat, dvec, Amat, Aind, bvec, meq=0, factorized=False, de
     if Aindok==False:
         raise ValueError("Aind contains illegal indexes.")
 
-    sol = Solution(n,q)
     err = factorized
-    
-    if destroyOK:
-        qpgen1_inplace(Dmat,
-            dvec,
-            Amat,
-            sol.solution,
-            sol.crval,
-            Amat,
-            Aind,
-            bvec,
-            q,
-            meq,
-            sol.iact,
-            sol.nact,
-            sol.iterations,
-            sol.work,
-            err)        
-    else:
-        sol.solution, sol.crval, sol.iact, sol.nact, sol.iter, sol.work = qpgen1( 
-         Dmat,
-         dvec,
-         Amat,
-         Aind,
-         bvec,
-         meq,
-         err)
+    sol = Solution(n,q)
+    sol.solution, sol.crval, sol.iact, sol.nact, sol.iter, sol.work = qpgen1( 
+     Dmat,
+     dvec,
+     Amat,
+     Aind,
+     bvec,
+     meq,
+     err)
     if err == 1:
         ValueError("constraints are inconsistent, no solution.")
     if err == 2:
         ValueError("matrix D in quadratic function is not positive definite!")
     return(sol)
 
-def solveQP(Dmat, dvec, Amat, bvec=None, meq=0, factorized=False, destroyOK=False):
+def solveQP(Dmat, dvec, Amat, bvec=None, meq=0, factorized=False):
     ''' Solve a quadratic program using the active set methods of Goldfarb and Idnani (1982, 1983)
     
     This methods solves a quadratic program of the form:
@@ -160,8 +139,7 @@ def solveQP(Dmat, dvec, Amat, bvec=None, meq=0, factorized=False, destroyOK=Fals
 
     factorized -- when factorized is true, Dmat=R^{-1} where D = R^TR.
 
-    destroyOK -- if True, Amat, dvec, Aind, bvec will be destoryed on exit but computation
-    may be performed more efficiently.'''    
+    '''    
         
     n = Dmat.shape[0]
     q = Amat.shape[1]
@@ -176,29 +154,18 @@ def solveQP(Dmat, dvec, Amat, bvec=None, meq=0, factorized=False, destroyOK=Fals
     if q != len(bvec):
         raise ValueError("Amat and bvec are incompatible.")
     if meq>q or meq<0:
-        raise ValueError("meq is invalid.")  
-    err = factorized
-    
-    sol = Solution(n,q)
+        raise ValueError("meq is invalid.")
 
-    if destroyOK:
-        qpgen2_inplace(
-            Dmat,
-            dvec,
-            Amat,
-            bvec,
-            meq,
-            err
-            )
-    else:
-        sol.solution, sol.crval, sol.iact, sol.nact, sol.iter, sol.work = qpgen2( 
-            Dmat,
-            dvec,
-            Amat,
-            bvec,
-            meq,
-            err
-            )
+    err = factorized
+    sol = Solution(n,q)
+    sol.solution, sol.crval, sol.iact, sol.nact, sol.iter, sol.work = qpgen2( 
+        Dmat,
+        dvec,
+        Amat,
+        bvec,
+        meq,
+        err
+        )
     if err == 1:
         ValueError("constraints are inconsistent, no solution.")
     if err == 2:
