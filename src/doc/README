@@ -1,0 +1,6 @@
+Quadratic Programming functions for S-plus
+
+solve.QP(...)           Solve a quadratic problem (no compact storage)
+solve.QP.compact(...)   Solve a quadratic problem with constraints
+                        stored in compact form 
+

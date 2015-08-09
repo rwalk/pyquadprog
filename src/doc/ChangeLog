@@ -1,0 +1,92 @@
+Thu Jul 23 05:13:14 1998  Berwin Turlach  <bturlach@stats.adelaide.edu.au>
+
+	* Release 1.4 ready.
+
+	* First.lib.template:
+	Corrected copyright notice.  Changed to Release 1.4.
+
+	* solve.QP.d, solve.QP.compact.d:
+	Corrected copyright notice.  Changed occurrence of .AT to .AG (pointed
+	out by Brian Ripley).
+
+	* solve.QP.compact.sf, solve.QP.sf: Corrected copyright notice.
+
+	* solve.QP.f, solve.QP.compact.f, aind.f, achck.f:
+	Corrected copyright notice, rearranged declaration of variable (it
+	seems f2c and the windows compiler do not like the old sequence;
+	pointed out by Andreas Weingessel and Brian Ripley, respectively)
+
+Mon Jul  6 06:25:56 1998  Berwin Turlach  <bturlach@stats.adelaide.edu.au>
+
+	* Release 1.3 ready.
+
+	* First.lib.template:
+	Changed to GNU Library Public License, changed start up message and
+	changed to Release 1.3.
+
+	* solve.QP.compact.sf, solve.QP.sf:
+	Changed to GNU Library Public License and added code to check at the
+	end whether constraints are really satisfied.
+
+	* achck.f: Initial revision
+
+	* solve.QP.f, solve.QP.compact.f:
+	Changed to GNU Library Public License and corrected a typo in the
+	documentation pointed out by Peter Chen <PChen@POSTOFFICE.nacm.com>
+
+	* solve.QP.compact.d, solve.QP.d:
+	Added GNU Library Public License notice
+
+	* aind.f: Changed to GNU Library Public License
+
+Tue Dec 30 07:24:26 1997  Berwin Turlach  <berwin.turlach@anu.edu.au>
+
+	* Release 1.2 ready.
+
+	* First.lib.template:
+	Changed to Release 1.2 after recent bug fix in Fortran code and
+	changes to S-plus interface and help files.
+
+	* solve.QP.compact.sf:
+	Added a Fortran routine that checks whether all elements of Aind which
+	are accessed are valid.  Prior (S-plus coded) test was too crude and
+	failed if constraints had different lengths and shorter constraints
+	were filled up with zeros.
+
+	* aind.f: Initial revision
+
+Sun Dec 28 07:49:18 1997  Berwin Turlach  <berwin.turlach@anu.edu.au>
+
+	* solve.QP.sf, solve.QP.compact.sf:
+	Deleted `miter' from parameter list as underlying Fortran code doesn't
+	have it anymore.  Deleted all storage.mode commands and defined mode
+	in call to Fortran routine (my preferred style these days).  Added
+	checks whether dimensions of arguments are compatible and sensible.
+
+	* solve.QP.d, solve.QP.compact.d:
+	Reworded the help file and brought it closer to the style described in
+	the complements of V&R 2nd ed.
+
+	* solve.QP.f, solve.QP.compact.f:
+	Deleted `miter' from parameter list and program as it is not
+	necessary, was there for debugging reasons but annoys now.
+
+Wed Nov 12 08:52:22 1997  Berwin Turlach  <berwin.turlach@anu.edu.au>
+
+	* solve.QP.f, solve.QP.compact.f:
+	Fixed a bug, if an equality constraint is dropped and the sign of the
+	normal vector changes, bvec() wasn't changed.
+
+Tue Jul  1 07:41:19 1997  Berwin Turlach  <berwin.turlach@anu.edu.au>
+
+	* solve.QP.compact.sf, solve.QP.sf:
+	Changed error message from "is singular" to "is not positive definite"
+
+Mon Jun 30 01:22:38 1997  Berwin Turlach  <berwin.turlach@anu.edu.au>
+
+	* solve.QP.compact.f, solve.QP.f, solve.QP.sf, First.lib.template, solve.QP.compact.sf:
+	Corrected address of Free Software Foundation
+
+Mon Jun 23 09:09:28 1997  Berwin Turlach  <berwin@cimmerian>
+
+	* Release 1.1 ready.

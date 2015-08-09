@@ -1,0 +1,61 @@
+This library was put together using the CHAPTER utility of S-PLUS.
+The Makefile created by this utility was modified so that dynamic
+loading (see WHICH_LOAD below) is the default.  The hope is that this
+should make the installation process fairly simple.  The development
+was done in a UNIX environment (also notable by the filenames) and the
+instructions given here assume that a UNIX environment is being used.
+If the installation does not work then please let me know.
+Alternatively, you can use your own method of installation.
+
+INSTALLING THE LIBRARY:
+
+Place the file QuadProg.shar in the directory of your choice.
+
+For explanatory purposes, we will suppose that the directory has the
+path name:
+                        ~/splus/libraries
+
+Starting from this directory type the commands:
+
+1) sh QuadProg.shar (This creates the directory QuadProg underneath
+                    the current directory and unpacks all the required
+                    files)
+2) cd QuadProg
+
+3) Splus SHOME  (This tells you the location of the S-PLUS home
+                directory.  Next, edit the Makefile and make the SHOME
+                variable point to the location of this directory.
+                Also, change the WHICH_LOAD variable to your preferred
+                version. The description on using the library given
+                below assumes that you choose one of the dynamic
+                loading options.  If you choose `dyn.load.shared', you
+                may have to change in the function .First.lib [located
+                in QuadProg.q] the line `dyn.load(X)' to
+                `dyn.load.shared(X)' [can anybody confirm this?])
+
+4) make install (This installs the S-PLUS functions and help files)
+
+5) make load    (This makes the required object code)
+
+6) make clean   (This deletes unnecessary files)
+
+7) Does the parent directory (i.e. ~/splus/libraries) have a README
+   file?
+   yes:  Append the last line of README.pd to that file (and delete
+         README.pd) 
+   no:   type the following command:  mv README.pd ../README
+
+
+USING THE LIBRARY:
+
+Enter S-PLUS from any directory.  Assume that the absolute path for
+~/splus/mylibrary is /home/userxyz/splus/library.  To make the
+QuadProg functions available to the current session type:
+
+       assign("lib.loc","/home/userxyz/splus/mylibrary",where=0)
+       library(QuadProg)
+
+To save having to type the first command each time you want to use
+QuadProg it is suggested that you create a .First function containing
+these commands. It is then activated each time you enter S-PLUS.
+
