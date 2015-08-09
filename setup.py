@@ -26,5 +26,5 @@ if __name__ == "__main__":
       author='rwalker',
       author_email='r_walker@zoho.com',
       py_modules = ['quadprog'],
-      license='MIT',
+      license='GPL V2',
       ext_modules=[quadprog_ext])
